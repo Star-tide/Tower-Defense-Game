@@ -56,11 +56,11 @@ func _spawn_enemy(group: Dictionary) -> void:
 	if enemy_basic_scene == null or level == null or enemy_manager == null:
 		push_warning("WaveManager not fully configured; cannot spawn enemy.")
 		return
-	var enemy = enemy_basic_scene.instantiate()
-	if enemy.has_method("setup_path"):
-		enemy.setup_path(level.get_path_points(), level.get_spawn_position(), enemy_manager, group.get("speed", 4.0))
-	enemy_manager.register_enemy(enemy)
+	var enemy: Node = enemy_basic_scene.instantiate()
 	level.add_child(enemy)
+	if enemy.has_method("setup_path"):
+		enemy.call_deferred("setup_path", level.get_path_points(), level.get_spawn_position(), enemy_manager, group.get("speed", 4.0))
+	enemy_manager.register_enemy(enemy)
 
 func _load_waves(path: String) -> Array:
 	var file := FileAccess.open(path, FileAccess.READ)
