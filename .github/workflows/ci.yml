@@ -9,7 +9,6 @@ on:
 jobs:
   export:
     name: Export builds (Win/macOS/Linux)
-    if: ${{ hashFiles('project.godot') != '' && hashFiles('export_presets.cfg') != '' }}
     runs-on: ubuntu-latest
     env:
       EXPORT_NAME: tower-defense
@@ -17,6 +16,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Verify required files
+        run: |
+          test -f project.godot || (echo "project.godot missing" && exit 1)
+          test -f export_presets.cfg || (echo "export_presets.cfg missing" && exit 1)
 
       - name: Install Godot headless + templates
         run: |
