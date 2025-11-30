@@ -16,7 +16,7 @@ func _load_path() -> void:
 	if file == null:
 		push_warning("Path config not found: %s" % path_config)
 		return
-	var data := JSON.parse_string(file.get_as_text())
+	var data: Variant = JSON.parse_string(file.get_as_text())
 	if typeof(data) != TYPE_DICTIONARY:
 		push_warning("Invalid path config format: %s" % path_config)
 		return
