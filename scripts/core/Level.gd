@@ -86,7 +86,7 @@ func _build_path_tiles() -> void:
 		var steps := int(ceil(distance / max(path_tile_spacing, 0.1)))
 		for s in range(steps + 1):
 			var t := min(s * path_tile_spacing, distance)
-			var pos := start + dir * t
+			var pos: Vector3 = start + dir * t
 			_place_path_tile(pos)
 
 func _place_path_tile(pos: Vector3) -> void:
