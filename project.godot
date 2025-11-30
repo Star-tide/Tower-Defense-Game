@@ -17,3 +17,14 @@ config/features=PackedStringArray("4.5")
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
+
+[input]
+
+input/ui_accept=[Object(InputEventKey,"device":-1,"physical_keycode":4194309,"keycode":0,"unicode":0,"echo":false,"pressed":true)]
+input/ui_cancel=[Object(InputEventKey,"device":-1,"physical_keycode":4194305,"keycode":0,"unicode":0,"echo":false,"pressed":true)]
+input/camera_pan=[Object(InputEventMouseButton,"device":-1,"button_index":2,"factor":1.0,"pressed":true)]
+input/camera_zoom_in=[Object(InputEventMouseButton,"device":-1,"button_index":4,"factor":1.0,"pressed":true)]
+input/camera_zoom_out=[Object(InputEventMouseButton,"device":-1,"button_index":5,"factor":1.0,"pressed":true)]
+input/build=[Object(InputEventKey,"device":-1,"physical_keycode":66,"keycode":0,"unicode":0,"echo":false,"pressed":true)]
+input/sell=[Object(InputEventKey,"device":-1,"physical_keycode":83,"keycode":0,"unicode":0,"echo":false,"pressed":true)]
+input/upgrade=[Object(InputEventKey,"device":-1,"physical_keycode":85,"keycode":0,"unicode":0,"echo":false,"pressed":true)]
