@@ -50,7 +50,7 @@ jobs:
         run: godot -v --headless --export-release "Windows Desktop" "builds/windows/${EXPORT_NAME}.exe"
 
       - name: Export Linux
-        run: godot -v --headless --export-release "Linux/X11" "builds/linux/${EXPORT_NAME}.x86_64"
+        run: godot -v --headless --export-release "Linux" "builds/linux/${EXPORT_NAME}.x86_64"
 
       - name: Export macOS
         run: godot -v --headless --export-release "macOS" "builds/macos/${EXPORT_NAME}.zip"
