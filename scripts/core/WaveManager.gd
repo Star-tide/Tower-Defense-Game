@@ -67,7 +67,7 @@ func _load_waves(path: String) -> Array:
 	if file == null:
 		push_warning("Wave config not found: %s" % path)
 		return []
-	var data := JSON.parse_string(file.get_as_text())
+	var data: Variant = JSON.parse_string(file.get_as_text())
 	if typeof(data) != TYPE_DICTIONARY or not data.has("waves"):
 		push_warning("Invalid wave config format: %s" % path)
 		return []
