@@ -8,14 +8,17 @@ signal wave_completed(wave_number: int)
 
 var waves: Array = []
 var current_wave_index: int = -1
-var level: Level
-var enemy_manager: EnemyManager
+var level: Level = null
+var enemy_manager: EnemyManager = null
 var spawning: bool = false
 
 func setup(level_ref: Level, enemy_manager_ref: EnemyManager) -> void:
 	level = level_ref
 	enemy_manager = enemy_manager_ref
-	waves = level.get_wave_config_path().is_empty() ? [] : _load_waves(level.get_wave_config_path())
+	waves.clear()
+	if level.get_wave_config_path().is_empty():
+		return
+	waves = _load_waves(level.get_wave_config_path())
 
 func start_next_wave() -> void:
 	if spawning:
