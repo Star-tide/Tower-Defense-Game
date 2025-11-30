@@ -51,12 +51,13 @@ func _initialize_from_camera() -> void:
 	distance = initial_offset.length()
 	if distance <= 0.001:
 		distance = 20.0
-	var horizontal_length: float = Vector2(initial_offset.x, initial_offset.z).length()
-	yaw_deg = rad_to_deg(atan2(initial_offset.x, initial_offset.z))
+	var forward_to_focus: Vector3 = -initial_offset
+	var horizontal_length: float = Vector2(forward_to_focus.x, forward_to_focus.z).length()
+	yaw_deg = rad_to_deg(atan2(forward_to_focus.x, forward_to_focus.z))
 	if horizontal_length == 0.0:
 		pitch_deg = 45.0
 	else:
-		pitch_deg = rad_to_deg(atan2(initial_offset.y, horizontal_length))
+		pitch_deg = rad_to_deg(atan2(forward_to_focus.y, horizontal_length))
 	pitch_deg = clamp(pitch_deg, min_pitch_deg, max_pitch_deg)
 
 func _process(delta: float) -> void:
@@ -87,11 +88,9 @@ func _adjust_zoom(delta_dist: float) -> void:
 
 func _pan_camera(relative: Vector2) -> void:
 	var yaw_rad: float = deg_to_rad(yaw_deg)
-	var right: Vector3 = Vector3(sin(yaw_rad), 0.0, cos(yaw_rad)).normalized()
-	var forward: Vector3 = Vector3(-cos(yaw_rad), 0.0, sin(yaw_rad)).normalized()
-	var delta_x: float = -relative.x * drag_pan_speed
-	var delta_z: float = -relative.y * drag_pan_speed
-	var pan_vector: Vector3 = (right * delta_x) + (forward * delta_z)
+	var forward_ground: Vector3 = Vector3(sin(yaw_rad), 0.0, cos(yaw_rad)).normalized()
+	var right_ground: Vector3 = Vector3(cos(yaw_rad), 0.0, -sin(yaw_rad)).normalized()
+	var pan_vector: Vector3 = (-relative.x * right_ground - relative.y * forward_ground) * drag_pan_speed
 	focus_point += pan_vector
 	global_position += pan_vector
 	_update_camera_transform()
@@ -114,9 +113,9 @@ func _handle_keyboard_pan(delta: float) -> void:
 	if input_dir == Vector3.ZERO:
 		return
 	var yaw_rad: float = deg_to_rad(yaw_deg)
-	var right: Vector3 = Vector3(sin(yaw_rad), 0.0, cos(yaw_rad)).normalized()
-	var forward: Vector3 = Vector3(-cos(yaw_rad), 0.0, sin(yaw_rad)).normalized()
-	var move: Vector3 = (right * input_dir.x) + (forward * input_dir.z)
+	var forward_ground: Vector3 = Vector3(sin(yaw_rad), 0.0, cos(yaw_rad)).normalized()
+	var right_ground: Vector3 = Vector3(cos(yaw_rad), 0.0, -sin(yaw_rad)).normalized()
+	var move: Vector3 = (right_ground * input_dir.x) + (forward_ground * input_dir.z)
 	if move.length() > 0.001:
 		move = move.normalized() * move_speed * delta
 		focus_point += move
@@ -131,5 +130,5 @@ func _update_camera_transform() -> void:
 		sin(pitch_rad),
 		cos(yaw_rad) * cos(pitch_rad)
 	).normalized()
-	camera.transform.origin = focus_point + dir * distance
+	camera.transform.origin = focus_point - dir * distance
 	camera.look_at(focus_point, Vector3.UP)
