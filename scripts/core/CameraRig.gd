@@ -19,9 +19,32 @@ var dragging_pan: bool = false
 var dragging_rotate: bool = false
 
 func _ready() -> void:
+	_ensure_actions()
 	camera = $Camera3D
 	_initialize_from_camera()
 	_update_camera_transform()
+
+func _ensure_actions() -> void:
+	var actions: Array[String] = [
+		"camera_move_forward",
+		"camera_move_back",
+		"camera_move_left",
+		"camera_move_right"
+	]
+	for action_name in actions:
+		if not InputMap.has_action(action_name):
+			InputMap.add_action(action_name)
+	_add_key_events("camera_move_forward", [Key.KEY_W, Key.KEY_UP])
+	_add_key_events("camera_move_back", [Key.KEY_S, Key.KEY_DOWN])
+	_add_key_events("camera_move_left", [Key.KEY_A, Key.KEY_LEFT])
+	_add_key_events("camera_move_right", [Key.KEY_D, Key.KEY_RIGHT])
+
+func _add_key_events(action_name: String, keys: Array) -> void:
+	for code in keys:
+		var ev: InputEventKey = InputEventKey.new()
+		ev.physical_keycode = int(code)
+		if not InputMap.action_has_event(action_name, ev):
+			InputMap.action_add_event(action_name, ev)
 
 func _initialize_from_camera() -> void:
 	var initial_offset: Vector3 = camera.transform.origin - focus_point
