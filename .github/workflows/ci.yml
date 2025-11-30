@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  EXPORT_NAME: tower-defense
+
+jobs:
+  export:
+    name: Export builds (Win/macOS/Linux)
+    if: ${{ hashFiles('project.godot') != '' && hashFiles('export_presets.cfg') != '' }}
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.2.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare build folders
+        run: |
+          mkdir -p builds/windows builds/linux builds/macos
+
+      - name: Export Windows
+        run: godot -v --headless --export-release "Windows Desktop" "builds/windows/${EXPORT_NAME}.exe"
+
+      - name: Export Linux
+        run: godot -v --headless --export-release "Linux/X11" "builds/linux/${EXPORT_NAME}.x86_64"
+
+      - name: Export macOS
+        run: godot -v --headless --export-release "macOS" "builds/macos/${EXPORT_NAME}.zip"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.EXPORT_NAME }}-builds
+          path: |
+            builds/windows/**
+            builds/linux/**
+            builds/macos/**

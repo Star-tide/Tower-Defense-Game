@@ -21,6 +21,11 @@ Scaffold for a 3D isometric tower defense game in Godot 4.5. The repo is organiz
 - Export presets: add exports for Windows, macOS, Linux once the project file exists. macOS builds need signing/notarization to avoid Gatekeeper warnings; Windows benefits from code signing to reduce SmartScreen prompts; Linux often ships as AppImage or a self-contained folder.
 - CI later: plan a GitHub Actions workflow to lint/test and produce exports per platform once presets are defined.
 
+## CI workflow
+- `.github/workflows/ci.yml` runs on push/PR to `main`, exporting Windows Desktop, Linux/X11, and macOS builds inside a Godot 4.2.2 headless container.
+- Exports only run when `project.godot` and `export_presets.cfg` are present; commit your export presets to enable it.
+- Update the container tag to 4.5 (or your exact engine version) once available, and ensure preset names in the workflow match your presets.
+
 ## Getting started
 1) Open the folder in Godot 4.5 and create the project (choose a final name later).
 2) Add export presets for Windows/macOS/Linux and set the output paths under `builds/`.
