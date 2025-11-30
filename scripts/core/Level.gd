@@ -20,9 +20,9 @@ func _load_path() -> void:
 	if typeof(data) != TYPE_DICTIONARY:
 		push_warning("Invalid path config format: %s" % path_config)
 		return
-	var spawn := data.get("spawn", [0, 0, 0])
-	var goal := data.get("goal", [0, 0, 10])
-	var points := data.get("path", [])
+	var spawn: Array = (data.get("spawn", [0, 0, 0]) as Array)
+	var goal: Array = (data.get("goal", [0, 0, 10]) as Array)
+	var points: Array = (data.get("path", []) as Array)
 	spawn_position = Vector3(spawn[0], spawn[1], spawn[2])
 	goal_position = Vector3(goal[0], goal[1], goal[2])
 	path_points = []
