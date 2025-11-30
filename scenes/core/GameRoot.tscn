@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://deqojbk54rh4y"]
+[gd_scene load_steps=10 format=3 uid="uid://deqojbk54rh4y"]
 
 [ext_resource type="Script" path="res://scripts/core/GameRoot.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/core/WaveManager.gd" id="2"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" path="res://ui/scenes/HUD.tscn" id="5"]
 [ext_resource type="Script" path="res://scripts/core/Level.gd" id="6"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/Enemy_Basic.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://scenes/core/CameraRig.tscn" id="8"]
+
+[sub_resource type="DirectionalLight3D" id="1"]
+light_energy = 2.0
 
 [node name="GameRoot" type="Node3D"]
 script = ExtResource("1")
@@ -25,3 +29,10 @@ script = ExtResource("3")
 script = ExtResource("4")
 
 [node name="HUD" parent="." instance=ExtResource("5")]
+
+[node name="CameraRig" parent="." instance=ExtResource("8")]
+
+[node name="SunLight" type="DirectionalLight3D" parent="."]
+light_color = Color(1, 0.964706, 0.901961, 1)
+light_energy = 1.4
+transform = Transform3D(0.866025, -0.353553, 0.353553, 0, 0.707107, 0.707107, -0.5, -0.612372, 0.612372, 0, 12, 0)
