@@ -39,10 +39,10 @@ func _ensure_actions() -> void:
 	_add_key_events("camera_move_left", [Key.KEY_A, Key.KEY_LEFT])
 	_add_key_events("camera_move_right", [Key.KEY_D, Key.KEY_RIGHT])
 
-func _add_key_events(action_name: String, keys: Array) -> void:
-	for code in keys:
+func _add_key_events(action_name: String, keys: Array[Key]) -> void:
+	for code: Key in keys:
 		var ev: InputEventKey = InputEventKey.new()
-		ev.physical_keycode = int(code)
+		ev.physical_keycode = code
 		if not InputMap.action_has_event(action_name, ev):
 			InputMap.action_add_event(action_name, ev)
 
