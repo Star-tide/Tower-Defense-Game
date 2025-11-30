@@ -33,8 +33,14 @@ jobs:
           sudo mv Godot_v${GODOT_VERSION}_linux.x86_64 /usr/local/bin/godot
           sudo chmod +x /usr/local/bin/godot
           wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 5 "${BASE_URL}/Godot_v${GODOT_VERSION}_export_templates.tpz" -O templates.tpz
+          TMP_DIR=$(mktemp -d)
+          unzip templates.tpz -d "${TMP_DIR}"
           mkdir -p ~/.local/share/godot/export_templates/${GODOT_TPL_VERSION}
-          unzip templates.tpz -d ~/.local/share/godot/export_templates/${GODOT_TPL_VERSION}
+          if [ -d "${TMP_DIR}/templates" ]; then
+            mv "${TMP_DIR}/templates/"* ~/.local/share/godot/export_templates/${GODOT_TPL_VERSION}/
+          else
+            mv "${TMP_DIR}/"* ~/.local/share/godot/export_templates/${GODOT_TPL_VERSION}/
+          fi
 
       - name: Prepare build folders
         run: |
