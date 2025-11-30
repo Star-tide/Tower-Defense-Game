@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://2u0a2t14l225"]
+
+[ext_resource type="MeshLibrary" uid="uid://c3eev1byggxpg" path="res://assets/meshlibraries/kenney-mesh-library.meshlib" id="1_yhwup"]
+
+[node name="Level1" type="Node2D"]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_yhwup")
+cell_size = Vector3(1, 1, 1)
+cell_center_y = false

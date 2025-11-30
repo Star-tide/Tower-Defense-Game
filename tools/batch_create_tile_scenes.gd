@@ -6,7 +6,7 @@ extends EditorScript
 const SOURCE_DIR := "res://assets/models/kenney_tower_defense_3d/glb"
 const DEST_DIR := "res://scenes/environment/tiles"
 const ADD_COLLISION := true
-const OVERWRITE_EXISTING := false
+const OVERWRITE_EXISTING := true
 
 func _run() -> void:
 	var da := DirAccess.open(SOURCE_DIR)
