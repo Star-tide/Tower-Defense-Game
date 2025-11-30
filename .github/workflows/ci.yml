@@ -13,6 +13,7 @@ jobs:
     env:
       EXPORT_NAME: tower-defense
       GODOT_VERSION: 4.5-stable
+      GODOT_TPL_VERSION: 4.5.stable
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,8 +33,8 @@ jobs:
           sudo mv Godot_v${GODOT_VERSION}_linux.x86_64 /usr/local/bin/godot
           sudo chmod +x /usr/local/bin/godot
           wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 5 "${BASE_URL}/Godot_v${GODOT_VERSION}_export_templates.tpz" -O templates.tpz
-          mkdir -p ~/.local/share/godot/templates/${GODOT_VERSION}
-          unzip templates.tpz -d ~/.local/share/godot/templates/${GODOT_VERSION}
+          mkdir -p ~/.local/share/godot/export_templates/${GODOT_TPL_VERSION}
+          unzip templates.tpz -d ~/.local/share/godot/export_templates/${GODOT_TPL_VERSION}
 
       - name: Prepare build folders
         run: |
