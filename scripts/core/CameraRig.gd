@@ -21,12 +21,12 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mb: InputEventMouseButton = event
-		if mb.button_index == MouseButton.MIDDLE:
+		if mb.button_index == MouseButton.MOUSE_BUTTON_MIDDLE:
 			dragging = mb.pressed
 			last_mouse_position = mb.position
-		elif mb.button_index == MouseButton.WHEEL_UP and mb.pressed:
+		elif mb.button_index == MouseButton.MOUSE_BUTTON_WHEEL_UP and mb.pressed:
 			_adjust_zoom(-zoom_step)
-		elif mb.button_index == MouseButton.WHEEL_DOWN and mb.pressed:
+		elif mb.button_index == MouseButton.MOUSE_BUTTON_WHEEL_DOWN and mb.pressed:
 			_adjust_zoom(zoom_step)
 
 	if event is InputEventMouseMotion and dragging:
