@@ -6,19 +6,29 @@ on:
   pull_request:
     branches: ["main"]
 
-env:
-  EXPORT_NAME: tower-defense
-
 jobs:
   export:
     name: Export builds (Win/macOS/Linux)
     if: ${{ hashFiles('project.godot') != '' && hashFiles('export_presets.cfg') != '' }}
     runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:4.2.2
+    env:
+      EXPORT_NAME: tower-defense
+      GODOT_VERSION: 4.5-stable
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install Godot headless + templates
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip -O godot.zip
+          unzip godot.zip
+          sudo mv Godot_v${GODOT_VERSION}_linux.x86_64 /usr/local/bin/godot
+          sudo chmod +x /usr/local/bin/godot
+          wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz -O templates.tpz
+          mkdir -p ~/.local/share/godot/templates/${GODOT_VERSION}
+          unzip templates.tpz -d ~/.local/share/godot/templates/${GODOT_VERSION}
 
       - name: Prepare build folders
         run: |
