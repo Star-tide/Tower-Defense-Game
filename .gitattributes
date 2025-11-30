@@ -1,0 +1,38 @@
+* text=auto
+
+# Godot scene and resource files - keep LF endings for diffs and stability
+*.tscn text eol=lf
+*.tres text eol=lf
+*.gd text eol=lf
+*.cfg text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+
+# Scripts on Windows that may want CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.tga binary
+*.webp binary
+*.ogg binary
+*.wav binary
+*.mp3 binary
+*.glb binary
+*.fbx binary
+*.gltf binary
+*.mesh binary
+*.res binary
+*.import binary
+*.exe binary
+*.dll binary
+*.pdb binary
+*.so binary
+*.dylib binary
