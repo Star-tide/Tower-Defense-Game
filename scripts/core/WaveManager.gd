@@ -4,7 +4,7 @@ class_name WaveManager
 signal wave_started(wave_number: int)
 signal wave_completed(wave_number: int)
 
-@export var enemy_basic_scene: PackedScene
+@export var enemy_basic_scene: PackedScene = null
 
 var waves: Array = []
 var current_wave_index: int = -1
@@ -33,7 +33,7 @@ func start_next_wave() -> void:
 	_spawn_wave(waves[current_wave_index])
 
 func _spawn_wave(wave_data: Dictionary) -> void:
-	var wave_number := current_wave_index + 1
+	var wave_number: int = current_wave_index + 1
 	wave_started.emit(wave_number)
 	var delay: float = wave_data.get("delay", 0.0)
 	if delay > 0.0:
