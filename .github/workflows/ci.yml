@@ -22,15 +22,16 @@ jobs:
           test -f project.godot || (echo "project.godot missing" && exit 1)
           test -f export_presets.cfg || (echo "export_presets.cfg missing" && exit 1)
 
-      - name: Install Godot headless + templates
+      - name: Install Godot headless + templates (GitHub mirror with retry)
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip
-          wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip -O godot.zip
+          BASE_URL="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}"
+          wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 5 "${BASE_URL}/Godot_v${GODOT_VERSION}_linux.x86_64.zip" -O godot.zip
           unzip godot.zip
           sudo mv Godot_v${GODOT_VERSION}_linux.x86_64 /usr/local/bin/godot
           sudo chmod +x /usr/local/bin/godot
-          wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz -O templates.tpz
+          wget --retry-connrefused --waitretry=5 --read-timeout=20 --timeout=15 -t 5 "${BASE_URL}/Godot_v${GODOT_VERSION}_export_templates.tpz" -O templates.tpz
           mkdir -p ~/.local/share/godot/templates/${GODOT_VERSION}
           unzip templates.tpz -d ~/.local/share/godot/templates/${GODOT_VERSION}
 
