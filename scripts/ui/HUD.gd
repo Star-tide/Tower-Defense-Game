@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name HUD
 
 @onready var build_menu: Control = $BuildMenu
 

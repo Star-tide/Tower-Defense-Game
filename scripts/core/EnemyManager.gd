@@ -1,4 +1,5 @@
 extends Node
+class_name EnemyManager
 
 var active_enemies: Array = []
 

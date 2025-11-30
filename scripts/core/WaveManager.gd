@@ -1,4 +1,5 @@
 extends Node
+class_name WaveManager
 
 signal wave_started(wave_number: int)
 signal wave_completed(wave_number: int)

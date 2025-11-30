@@ -1,4 +1,5 @@
 extends Node
+class_name TowerManager
 
 var placed_towers: Array = []
 

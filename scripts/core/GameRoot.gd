@@ -1,4 +1,5 @@
 extends Node3D
+class_name GameRoot
 
 @onready var wave_manager: WaveManager = $WaveManager
 @onready var enemy_manager: EnemyManager = $EnemyManager

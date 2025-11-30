@@ -1,4 +1,5 @@
 extends Control
+class_name BuildMenu
 
 func select_tower(tower_id: String) -> void:
 	# Placeholder for tower selection logic.
